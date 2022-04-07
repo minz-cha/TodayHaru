@@ -13,7 +13,7 @@ class CalendarActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val calendar = findViewById<CalendarView>(R.id.calendar)
-        val date = findViewById<TextView>(R.id.date)
+        val date = findViewById<TextView>(R.id.title)
 
         calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
             date.text = String.format("%d / %d / %d", year, month + 1, dayOfMonth)

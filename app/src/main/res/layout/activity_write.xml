@@ -19,6 +19,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/etCheck1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:background="@null"
+        app:layout_constraintBottom_toTopOf="@id/etCheck2"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/etCheck2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:background="@null"
+        app:layout_constraintBottom_toTopOf="@id/btnSelect"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/gowun_batang"
+        android:text="Select"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/btnChange" />
+
+    <Button
+        android:id="@+id/btnChange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/gowun_batang"
+        android:text="Change"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/btnRegister" />
+
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
@@ -27,26 +65,38 @@
         android:fontFamily="@font/gowun_batang"
         android:text="Register"
         android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/btnDelete" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/gowun_batang"
+        android:text="Delete"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/viewWrite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toTopOf="@+id/btnRegister"
         app:layout_constraintTop_toBottomOf="@+id/todayDate"
         app:layout_constraintVertical_bias="0.414"
-        tools:layout_editor_absoluteX="16dp">
+        tools:layout_editor_absoluteX="0dp">
 
         <EditText
             android:id="@+id/etWrite"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:background="@null" />
+            android:background="@null"
+            android:fontFamily="@font/gowun_batang"
+            android:hint="오늘의 하루를 입력해주세요" />
+
 
     </androidx.core.widget.NestedScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
