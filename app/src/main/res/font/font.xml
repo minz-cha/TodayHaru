@@ -3,5 +3,10 @@
     <font
         android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/gowun_batang" />
+        android:font="@font/gowun_batang_regular" />
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/gowun_batang_bold" />
 </font-family>

@@ -21,8 +21,8 @@
         <activity
             android:name=".WriteDiaryActivity"
             android:windowSoftInputMode="adjustResize">
-
         </activity>
+        <activity android:name=".DiaryList"></activity>
     </application>
 
 </manifest>

@@ -1,10 +1,12 @@
 package com.app.todayharu
 
 import android.content.Context
+import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -14,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class WriteDiaryActivity : AppCompatActivity() {
 
-    lateinit var dbHelper: diaryDBHelper
+    lateinit var dbHelper: DBHelper
     lateinit var sqlDB: SQLiteDatabase
     lateinit var todayDate: TextView
     lateinit var etWrite: EditText
@@ -41,7 +43,7 @@ class WriteDiaryActivity : AppCompatActivity() {
         etCheck2 = findViewById(R.id.etCheck2)
 
         imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        dbHelper = diaryDBHelper(this)
+        dbHelper = DBHelper.getInstance(this)
 
         todayDate.text = intent.getStringExtra("dateData")
         etWrite.setOnClickListener {
@@ -52,6 +54,12 @@ class WriteDiaryActivity : AppCompatActivity() {
                 hideKeyboard()
                 i = 0
             }
+        }
+
+        val btngoList = findViewById<Button>(R.id.gotoList)
+        btngoList.setOnClickListener {
+            val intent = Intent(this, DiaryList::class.java)
+            startActivity(intent)
         }
 
         btnSelect.setOnClickListener {
@@ -78,10 +86,10 @@ class WriteDiaryActivity : AppCompatActivity() {
         btnChange.setOnClickListener {
             try {
                 sqlDB = dbHelper.writableDatabase
-                sqlDB.execSQL("UPDATE diaryTBL SET content=\"" + etWrite.text.toString() + "\" WHERE date=" + "\"" + todayDate.text.toString() + "\"")
+                dbHelper.onUpdateDiary(todayDate.text.toString(), etWrite.text.toString())
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
-                Toast.makeText(applicationContext, "유효한 값을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                startToast("유효한 값을 입력해주세요.")
             }
             btnSelect.callOnClick()
         }
@@ -89,14 +97,11 @@ class WriteDiaryActivity : AppCompatActivity() {
         btnRegister.setOnClickListener {
             sqlDB = dbHelper.writableDatabase
             if (etWrite.text.isEmpty()) {
-                Toast.makeText(applicationContext, "글을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                startToast("글을 입력해주세요.")
             } else {
-                sqlDB.execSQL(
-                    "INSERT INTO diaryTBL (date, content) Values ( ?, ?);",
-                    arrayOf(todayDate.text.toString(), etWrite.text.toString())
-                )
+                dbHelper.onInsertDiary(todayDate.text.toString(), etWrite.text.toString())
                 sqlDB.close()
-                Toast.makeText(applicationContext, "등록되었습니다.", Toast.LENGTH_SHORT).show()
+                startToast("등록되었습니다.")
             }
             btnSelect.callOnClick()
         }
@@ -104,17 +109,16 @@ class WriteDiaryActivity : AppCompatActivity() {
         btnDelete.setOnClickListener {
             try {
                 sqlDB = dbHelper.writableDatabase
-                sqlDB.execSQL("DELETE FROM diaryTBL WHERE date=" + "\"" + todayDate.text.toString() + "\"")
+                dbHelper.onDeleteDiary(todayDate.text.toString())
                 sqlDB.close()
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
-                Toast.makeText(applicationContext, "유효한 값을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                startToast("유효한 값을 입력해주세요.")
                 etCheck1.setText("")
                 etCheck2.setText("")
             }
             btnSelect.callOnClick()
         }
-
     }
 
     fun hideKeyboard() {
@@ -125,14 +129,7 @@ class WriteDiaryActivity : AppCompatActivity() {
         imm?.showSoftInput(etWrite, 0)
     }
 
-    inner class diaryDBHelper(context: Context) : SQLiteOpenHelper(context, "diaryTBL", null, 2) {
-        override fun onCreate(p0: SQLiteDatabase?) {
-            p0!!.execSQL("CREATE TABLE diaryTBL (date VARCHAR(30) PRIMARY KEY, content VARCHAR(500) NOT NULL);")
-        }
-
-        override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-            p0!!.execSQL("DROP TABLE IF EXISTS diaryTBL")
-            onCreate(p0)
-        }
+    fun startToast(msg: String){
+        Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
     }
 }
