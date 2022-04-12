@@ -16,7 +16,7 @@ class CalendarActivity : AppCompatActivity() {
         val date = findViewById<TextView>(R.id.title)
 
         calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            date.text = String.format("%d.%d.%d", year, month + 1, dayOfMonth)
+            date.text = String.format("%d.%02d.%02d", year, month + 1, dayOfMonth)
 
             val intent = Intent(this, WriteDiaryActivity::class.java)
             intent.putExtra("dateData", date.text)

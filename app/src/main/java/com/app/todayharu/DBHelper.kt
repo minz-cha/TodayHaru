@@ -3,7 +3,6 @@ package com.app.todayharu
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import java.util.*
 
 class DBHelper(context: Context) : SQLiteOpenHelper(context, "haruDB", null, 2) {
     companion object {
@@ -13,12 +12,6 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, "haruDB", null, 2) 
                 INSTANCE = DBHelper(context)
             return INSTANCE!!
         }
-    }
-
-    fun onSelectDiary(date: String) {
-        readableDatabase.execSQL(
-            "SELECT date FROM diaryTBL WHERE date=\"$date\""
-        )
     }
 
     fun onInsertDiary(date: String, content: String) {

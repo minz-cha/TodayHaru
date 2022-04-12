@@ -3,22 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/todayDate"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarWrite"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:fontFamily="@font/gowun_batang_regular"
-        android:text="Date"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_gnb_back">
+
+        <TextView
+            android:id="@+id/todayDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/gowun_batang_regular"
+            android:text="Date"
+            android:textSize="25sp" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <EditText
         android:id="@+id/etCheck1"
@@ -45,17 +51,6 @@
         android:backgroundTint="@color/white"
         android:fontFamily="@font/gowun_batang_regular"
         android:text="gotoList"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/btnSelect" />
-
-
-    <Button
-        android:id="@+id/btnSelect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:fontFamily="@font/gowun_batang_regular"
-        android:text="Select"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@id/btnChange" />
 
@@ -93,10 +88,10 @@
         android:id="@+id/viewWrite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         app:layout_constraintBottom_toTopOf="@+id/btnRegister"
-        app:layout_constraintTop_toBottomOf="@+id/todayDate"
-        app:layout_constraintVertical_bias="0.414"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarWrite"
+        app:layout_constraintVertical_bias="0.368"
         tools:layout_editor_absoluteX="0dp">
 
         <EditText
@@ -107,7 +102,6 @@
             android:background="@null"
             android:fontFamily="@font/gowun_batang_regular"
             android:hint="오늘의 하루를 입력해주세요" />
-
 
     </androidx.core.widget.NestedScrollView>
 

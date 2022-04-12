@@ -10,8 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TodayHaru">
         <activity
-            android:name=".CalendarActivity"
-            android:exported="true">
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.TodayHaru.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,10 +20,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".CalendarActivity"
+            android:exported="false" />
+        <activity
             android:name=".WriteDiaryActivity"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
-        <activity android:name=".DiaryList"></activity>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".DiaryList" />
     </application>
 
 </manifest>

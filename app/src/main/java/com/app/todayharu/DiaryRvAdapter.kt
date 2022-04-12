@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class DiaryRvAdapter(val context: Context, val diaryList: ArrayList<Diary>) :
+class DiaryRvAdapter(private val context: Context) :
     RecyclerView.Adapter<DiaryRvAdapter.Holder>() {
+    var diaryList = listOf<Diary>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view =LayoutInflater.from(context).inflate(R.layout.item_recycler, parent, false)
@@ -20,18 +21,16 @@ class DiaryRvAdapter(val context: Context, val diaryList: ArrayList<Diary>) :
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder?.bind(diaryList[position], context)
+        holder.bind(diaryList[position])
     }
 
     inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
-        val listDate = itemView?.findViewById<TextView>(R.id.listDate)
-        val listContent = itemView?.findViewById<TextView>(R.id.listContent)
+        private val listDate = itemView?.findViewById<TextView>(R.id.listDate)
+        private val listContent = itemView?.findViewById<TextView>(R.id.listContent)
 
-        fun bind(diary: Diary, context: Context) {
+        fun bind(diary: Diary) {
             listDate?.text = diary.date
             listContent?.text = diary.content
         }
     }
-
-
 }

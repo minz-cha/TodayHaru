@@ -2,11 +2,8 @@ package com.app.todayharu
 
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -22,7 +19,6 @@ class WriteDiaryActivity : AppCompatActivity() {
     lateinit var etWrite: EditText
     lateinit var etCheck1: EditText
     lateinit var etCheck2: EditText
-    lateinit var btnSelect: Button
     lateinit var btnChange: Button
     lateinit var btnRegister: Button
     lateinit var btnDelete: Button
@@ -35,7 +31,6 @@ class WriteDiaryActivity : AppCompatActivity() {
 
         todayDate = findViewById(R.id.todayDate)
         etWrite = findViewById(R.id.etWrite)
-        btnSelect = findViewById(R.id.btnSelect)
         btnChange = findViewById(R.id.btnChange)
         btnRegister = findViewById(R.id.btnRegister)
         btnDelete = findViewById(R.id.btnDelete)
@@ -62,27 +57,6 @@ class WriteDiaryActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btnSelect.setOnClickListener {
-
-            sqlDB = dbHelper.readableDatabase
-            var cursor: Cursor
-            cursor = sqlDB.rawQuery("SELECT * FROM diaryTBL;", null)
-
-            var strDate = "날짜 \r\n"
-            var strCon = "내용 \r\n"
-
-            while (cursor.moveToNext()) {
-                strDate += cursor.getString(0) + "\r\n"
-                strCon += cursor.getString(1) + "\r\n"
-            }
-
-            etCheck1.setText(strDate)
-            etCheck2.setText(strCon)
-
-            cursor.close()
-            sqlDB.close()
-        }
-
         btnChange.setOnClickListener {
             try {
                 sqlDB = dbHelper.writableDatabase
@@ -91,7 +65,6 @@ class WriteDiaryActivity : AppCompatActivity() {
                 e.printStackTrace()
                 startToast("유효한 값을 입력해주세요.")
             }
-            btnSelect.callOnClick()
         }
 
         btnRegister.setOnClickListener {
@@ -101,9 +74,10 @@ class WriteDiaryActivity : AppCompatActivity() {
             } else {
                 dbHelper.onInsertDiary(todayDate.text.toString(), etWrite.text.toString())
                 sqlDB.close()
-                startToast("등록되었습니다.")
+                val intent = Intent(this, CalendarActivity::class.java)
+                //intent.putExtra("dateData", todayDate.text)
+                startActivity(intent)
             }
-            btnSelect.callOnClick()
         }
 
         btnDelete.setOnClickListener {
@@ -117,8 +91,8 @@ class WriteDiaryActivity : AppCompatActivity() {
                 etCheck1.setText("")
                 etCheck2.setText("")
             }
-            btnSelect.callOnClick()
         }
+
     }
 
     fun hideKeyboard() {
@@ -129,7 +103,7 @@ class WriteDiaryActivity : AppCompatActivity() {
         imm?.showSoftInput(etWrite, 0)
     }
 
-    fun startToast(msg: String){
+    fun startToast(msg: String) {
         Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
     }
 }
