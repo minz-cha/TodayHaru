@@ -17,11 +17,7 @@ class WriteDiaryActivity : AppCompatActivity() {
     lateinit var sqlDB: SQLiteDatabase
     lateinit var todayDate: TextView
     lateinit var etWrite: EditText
-    lateinit var etCheck1: EditText
-    lateinit var etCheck2: EditText
-    lateinit var btnChange: Button
     lateinit var btnRegister: Button
-    lateinit var btnDelete: Button
     var imm: InputMethodManager? = null
     var i: Int = 0
 
@@ -31,11 +27,7 @@ class WriteDiaryActivity : AppCompatActivity() {
 
         todayDate = findViewById(R.id.todayDate)
         etWrite = findViewById(R.id.etWrite)
-        btnChange = findViewById(R.id.btnChange)
         btnRegister = findViewById(R.id.btnRegister)
-        btnDelete = findViewById(R.id.btnDelete)
-        etCheck1 = findViewById(R.id.etCheck1)
-        etCheck2 = findViewById(R.id.etCheck2)
 
         imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         dbHelper = DBHelper.getInstance(this)
@@ -51,22 +43,6 @@ class WriteDiaryActivity : AppCompatActivity() {
             }
         }
 
-        val btngoList = findViewById<Button>(R.id.gotoList)
-        btngoList.setOnClickListener {
-            val intent = Intent(this, DiaryList::class.java)
-            startActivity(intent)
-        }
-
-        btnChange.setOnClickListener {
-            try {
-                sqlDB = dbHelper.writableDatabase
-                dbHelper.onUpdateDiary(todayDate.text.toString(), etWrite.text.toString())
-            } catch (e: java.lang.Exception) {
-                e.printStackTrace()
-                startToast("유효한 값을 입력해주세요.")
-            }
-        }
-
         btnRegister.setOnClickListener {
             sqlDB = dbHelper.writableDatabase
             if (etWrite.text.isEmpty()) {
@@ -75,24 +51,11 @@ class WriteDiaryActivity : AppCompatActivity() {
                 dbHelper.onInsertDiary(todayDate.text.toString(), etWrite.text.toString())
                 sqlDB.close()
                 val intent = Intent(this, CalendarActivity::class.java)
-                //intent.putExtra("dateData", todayDate.text)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent)
             }
         }
-
-        btnDelete.setOnClickListener {
-            try {
-                sqlDB = dbHelper.writableDatabase
-                dbHelper.onDeleteDiary(todayDate.text.toString())
-                sqlDB.close()
-            } catch (e: java.lang.Exception) {
-                e.printStackTrace()
-                startToast("유효한 값을 입력해주세요.")
-                etCheck1.setText("")
-                etCheck2.setText("")
-            }
-        }
-
     }
 
     fun hideKeyboard() {

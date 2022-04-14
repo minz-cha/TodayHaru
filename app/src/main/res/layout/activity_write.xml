@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/ivory"
+    android:padding="15dp">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarWrite"
@@ -26,73 +27,13 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/etCheck1"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="10dp"
-        android:background="@null"
-        app:layout_constraintBottom_toTopOf="@id/etCheck2"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/etCheck2"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="10dp"
-        android:background="@null"
-        app:layout_constraintBottom_toTopOf="@id/gotoList"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/gotoList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:fontFamily="@font/gowun_batang_regular"
-        android:text="gotoList"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/btnChange" />
-
-    <Button
-        android:id="@+id/btnChange"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:fontFamily="@font/gowun_batang_regular"
-        android:text="Change"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/btnRegister" />
-
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:fontFamily="@font/gowun_batang_regular"
-        android:text="Register"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/btnDelete" />
-
-    <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:fontFamily="@font/gowun_batang_regular"
-        android:text="Delete"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/viewWrite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="70dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnRegister"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarWrite"
-        app:layout_constraintVertical_bias="0.368"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintBottom_toTopOf="@+id/btnBar"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarWrite">
 
         <EditText
             android:id="@+id/etWrite"
@@ -101,8 +42,27 @@
             android:layout_margin="10dp"
             android:background="@null"
             android:fontFamily="@font/gowun_batang_regular"
-            android:hint="오늘의 하루를 입력해주세요" />
+            android:hint="오늘의 하루를 기억해주세요" />
 
     </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/btnBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/gowun_batang_regular"
+            android:text="등록"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

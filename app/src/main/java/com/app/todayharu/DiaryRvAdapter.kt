@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 
 class DiaryRvAdapter(private val context: Context) :
     RecyclerView.Adapter<DiaryRvAdapter.Holder>() {
-    var diaryList = listOf<Diary>()
+    var diaryList = emptyList<DiaryData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view =LayoutInflater.from(context).inflate(R.layout.item_recycler, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_recycler, parent, false)
         return Holder(view)
     }
 
@@ -24,13 +24,29 @@ class DiaryRvAdapter(private val context: Context) :
         holder.bind(diaryList[position])
     }
 
-    inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
-        private val listDate = itemView?.findViewById<TextView>(R.id.listDate)
-        private val listContent = itemView?.findViewById<TextView>(R.id.listContent)
+    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val listDate = itemView.findViewById<TextView>(R.id.listDate)
+        private val listContent = itemView.findViewById<TextView>(R.id.listContent)
 
-        fun bind(diary: Diary) {
-            listDate?.text = diary.date
-            listContent?.text = diary.content
+        fun bind(item: DiaryData) {
+            listDate?.text = item.date.toString()
+            listContent?.text = item.content
+
+            val pos = adapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
+                itemView.setOnClickListener {
+                    listener?.onItemClick(itemView, item, pos)
+                }
+            }
         }
+    }
+    interface OnItemClickListener {
+        fun onItemClick(v: View, diary: DiaryData, pos: Int)
+    }
+
+    private lateinit var listener: OnItemClickListener
+
+    fun setOnItemClickListener(itemClickListener: OnItemClickListener){
+        listener = itemClickListener
     }
 }

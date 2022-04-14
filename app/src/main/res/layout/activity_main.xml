@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/ivory"
     tools:context=".WriteDiaryActivity">
 
     <LinearLayout
@@ -31,6 +32,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center" />
+
+        <Button
+            android:id="@+id/btnGoList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/gowun_batang_regular"
+            android:text="List"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 

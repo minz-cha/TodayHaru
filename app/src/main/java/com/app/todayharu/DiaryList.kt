@@ -1,14 +1,15 @@
 package com.app.todayharu
 
-import android.database.Cursor
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.util.Log
+import android.view.TextureView
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import org.w3c.dom.Text
 
 class DiaryList : AppCompatActivity() {
 
@@ -16,7 +17,8 @@ class DiaryList : AppCompatActivity() {
     lateinit var sqlDB: SQLiteDatabase
     lateinit var listDate: String
     lateinit var listContent: String
-    var diaryList = ArrayList<Diary>()
+    lateinit var dailyNone: TextView
+    var diaryList = ArrayList<DiaryData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,7 @@ class DiaryList : AppCompatActivity() {
         val diaryAdapter = DiaryRvAdapter(this)
         val diaryRv = findViewById<RecyclerView>(R.id.diaryRecyclerView)
         val lm = LinearLayoutManager(this)
+        dailyNone = findViewById(R.id.dailyNone)
 
         dbHelper = DBHelper.getInstance(this)
         sqlDB = dbHelper.readableDatabase
@@ -34,7 +37,7 @@ class DiaryList : AppCompatActivity() {
         while (cursor.moveToNext()) {
             listDate = cursor.getString(0)
             listContent = cursor.getString(1)
-            diaryList.add(Diary(listDate, listContent))
+            diaryList.add(DiaryData(listDate, listContent))
         }
         diaryAdapter.diaryList = diaryList
 
@@ -44,5 +47,17 @@ class DiaryList : AppCompatActivity() {
 
         cursor.close()
         sqlDB.close()
+
+        if (diaryList.size > 0) {
+            dailyNone.visibility = View.GONE
+        }
+
+        diaryAdapter.setOnItemClickListener(object : DiaryRvAdapter.OnItemClickListener {
+            override fun onItemClick(v: View, diary: DiaryData, pos: Int) {
+                val intent = Intent(applicationContext, DiaryDetail::class.java)
+                intent.putExtra("diaryData", diary)
+                startActivity(intent)
+            }
+        })
     }
 }
