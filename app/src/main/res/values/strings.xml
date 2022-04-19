@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TodayHaru</string>
+    <string name="search_view_hint">검색 내용을 입력해주세요.</string>
 </resources>

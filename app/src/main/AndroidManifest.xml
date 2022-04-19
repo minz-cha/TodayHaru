@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.app.todayharu">
 
-<!--    <uses-feature-->
-<!--        android:name="android.hardware.camera"-->
-<!--        android:required="true" />-->
-<!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"-->
-<!--        tools:ignore="ScopedStorage" />-->
-<!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
-<!--    <uses-permission android:name="android.permission.CAMERA" />-->
+    <!--    <uses-feature-->
+    <!--        android:name="android.hardware.camera"-->
+    <!--        android:required="true" />-->
+    <!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"-->
+    <!--        tools:ignore="ScopedStorage" />-->
+    <!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
+    <!--    <uses-permission android:name="android.permission.CAMERA" />-->
 
     <application
         android:allowBackup="true"
@@ -31,11 +31,18 @@
         <activity
             android:name=".CalendarActivity"
             android:exported="false" />
-        <activity android:name=".DiaryList" />
+        <activity android:name=".DiaryList" >
+
+        </activity>
+<!--        <activity android:name=".SearchActivity">-->
+
+<!--        </activity>-->
         <activity android:name=".DiaryDetail" />
         <activity
             android:name=".WriteDiaryActivity"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize">
+
+        </activity>
     </application>
 
 </manifest>

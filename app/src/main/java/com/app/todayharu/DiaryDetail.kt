@@ -2,16 +2,13 @@ package com.app.todayharu
 
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
-import android.nfc.Tag
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-class DiaryDetail: AppCompatActivity() {
+class DiaryDetail : AppCompatActivity() {
 
     lateinit var dbHelper: DBHelper
     lateinit var sqlDB: SQLiteDatabase
@@ -27,7 +24,7 @@ class DiaryDetail: AppCompatActivity() {
 
         var dailyDate = findViewById<TextView>(R.id.dailyDate)
         var dailyContent = findViewById<TextView>(R.id.dailyContent)
-        var i : Int = 0
+        var i = 0
 
         dailyDate.text = diaryList.date
         dailyContent.text = diaryList.content
@@ -36,10 +33,10 @@ class DiaryDetail: AppCompatActivity() {
         btnDelete = findViewById(R.id.btnDelete)
 
         btnChange.setOnClickListener {
-            if (i == 0){
+            if (i == 0) {
                 dailyContent.isEnabled = true
                 i = 1
-            }else if (i == 1){
+            } else if (i == 1) {
                 try {
                     dailyContent.isEnabled = false
                     dbHelper.onUpdateDiary(dailyDate.text.toString(), dailyContent.text.toString())
@@ -49,6 +46,7 @@ class DiaryDetail: AppCompatActivity() {
                     startToast("유효한 값을 입력해주세요.")
                 }
             }
+
         }
 
         btnDelete.setOnClickListener {
@@ -69,5 +67,12 @@ class DiaryDetail: AppCompatActivity() {
 
     fun startToast(msg: String) {
         Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, DiaryList::class.java)
+        setResult(RESULT_OK, intent)
+        overridePendingTransition(R.anim.slide_left_enter, R.anim.slide_left_exit)
+        finish()
     }
 }

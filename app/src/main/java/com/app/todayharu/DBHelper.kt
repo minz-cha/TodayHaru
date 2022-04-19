@@ -14,6 +14,13 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, "haruDB", null, 2) 
         }
     }
 
+    fun onFindDiary(content: String) {
+        readableDatabase.execSQL(
+            "SELECT * FROM diaryTBL WHERE date LIKE \"$content\" ORDER BY date DESC;"
+        )
+        readableDatabase.close()
+    }
+
     fun onInsertDiary(date: String, content: String) {
         writableDatabase.execSQL(
             "INSERT INTO diaryTBL (date, content) Values (?, ?);",

@@ -1,18 +1,19 @@
 package com.app.todayharu
 
-import android.content.Context
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class DiaryRvAdapter(private val context: Context) :
+class DiaryRvAdapter(private val diaryList: MutableList<DiaryData>) :
     RecyclerView.Adapter<DiaryRvAdapter.Holder>() {
-    var diaryList = emptyList<DiaryData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_recycler, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_recycler, parent, false)
         return Holder(view)
     }
 
@@ -29,24 +30,27 @@ class DiaryRvAdapter(private val context: Context) :
         private val listContent = itemView.findViewById<TextView>(R.id.listContent)
 
         fun bind(item: DiaryData) {
-            listDate?.text = item.date.toString()
+            listDate?.text = item.date
             listContent?.text = item.content
 
-            val pos = adapterPosition
-            if (pos != RecyclerView.NO_POSITION) {
-                itemView.setOnClickListener {
-                    listener?.onItemClick(itemView, item, pos)
+            itemView.setOnClickListener {
+                if (itemView.context is Activity) {
+                    val intent = Intent(itemView.context, DiaryDetail::class.java)
+                    intent.putExtra("diaryData", item)
+                    var activity = (itemView.context) as Activity
+                    activity.startActivityForResult(intent, 100)
                 }
             }
         }
     }
+
     interface OnItemClickListener {
         fun onItemClick(v: View, diary: DiaryData, pos: Int)
     }
 
     private lateinit var listener: OnItemClickListener
 
-    fun setOnItemClickListener(itemClickListener: OnItemClickListener){
+    fun setOnItemClickListener(itemClickListener: OnItemClickListener) {
         listener = itemClickListener
     }
 }

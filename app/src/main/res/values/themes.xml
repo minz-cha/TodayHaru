@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+
     <style name="Theme.TodayHaru" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
@@ -13,11 +14,18 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:windowActivityTransitions">true</item>
+
     </style>
 
     <style name="Theme.TodayHaru.Splash">
         <item name="android:windowBackground">@drawable/background_splash_screen</item>
     </style>
 
+    <style name="Theme.TodayHaru.Anim" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/ivory</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="android:windowActivityTransitions">true</item>
+    </style>
 
 </resources>
