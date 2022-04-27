@@ -2,6 +2,7 @@ package com.app.todayharu
 
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -19,8 +20,9 @@ class DiaryDetail : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_detail)
-        diaryList = intent.getParcelableExtra("diaryData")!!
+        window.statusBarColor = Color.parseColor("#000000")
         dbHelper = DBHelper.getInstance(this)
+        diaryList = dbHelper.onGetDate(intent.getStringExtra("diaryData")!!)
 
         var dailyDate = findViewById<TextView>(R.id.dailyDate)
         var dailyContent = findViewById<TextView>(R.id.dailyContent)
@@ -50,18 +52,11 @@ class DiaryDetail : AppCompatActivity() {
         }
 
         btnDelete.setOnClickListener {
-            try {
-                sqlDB = dbHelper.writableDatabase
-                dbHelper.onDeleteDiary(dailyDate.text.toString())
-                sqlDB.close()
-                val intent = Intent(this, DiaryList::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent)
-            } catch (e: java.lang.Exception) {
-                e.printStackTrace()
-                startToast("유효한 값을 입력해주세요.")
-            }
+            sqlDB = dbHelper.writableDatabase
+            dbHelper.onDeleteDiary(dailyDate.text.toString())
+            val intent = Intent(this, DiaryList::class.java)
+            setResult(RESULT_OK, intent)
+            finish()
         }
     }
 
@@ -72,7 +67,6 @@ class DiaryDetail : AppCompatActivity() {
     override fun onBackPressed() {
         val intent = Intent(this, DiaryList::class.java)
         setResult(RESULT_OK, intent)
-        overridePendingTransition(R.anim.slide_left_enter, R.anim.slide_left_exit)
         finish()
     }
 }

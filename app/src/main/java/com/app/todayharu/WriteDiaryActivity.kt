@@ -3,9 +3,13 @@ package com.app.todayharu
 import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Color
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class WriteDiaryActivity : AppCompatActivity() {
@@ -21,6 +25,7 @@ class WriteDiaryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write)
+        window.statusBarColor = Color.parseColor("#000000")
 
         todayDate = findViewById(R.id.todayDate)
         etWrite = findViewById(R.id.etWrite)

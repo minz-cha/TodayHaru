@@ -14,11 +14,29 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, "haruDB", null, 2) 
         }
     }
 
-    fun onFindDiary(content: String) {
-        readableDatabase.execSQL(
-            "SELECT * FROM diaryTBL WHERE date LIKE \"$content\" ORDER BY date DESC;"
-        )
-        readableDatabase.close()
+    fun onGetDate(date: String): DiaryData {
+        val cursor =
+            readableDatabase.rawQuery("SELECT * FROM diaryTBL WHERE date=\"$date\"",
+                null)
+        cursor.moveToFirst()
+        val date = cursor.getString(0)
+        val content = cursor.getString(1)
+        cursor.close()
+        return DiaryData(date, content)
+    }
+
+    fun onFindDiary(date: String): Boolean {
+        val cursor =
+            readableDatabase.rawQuery("SELECT EXISTS (SELECT * FROM diaryTBL WHERE date=\"$date\" LIMIT 1) as success;",
+                null)
+        cursor.moveToFirst()
+        if (cursor.getInt(0) == 1) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
     }
 
     fun onInsertDiary(date: String, content: String) {

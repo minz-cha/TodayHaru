@@ -36,7 +36,7 @@ class DiaryRvAdapter(private val diaryList: MutableList<DiaryData>) :
             itemView.setOnClickListener {
                 if (itemView.context is Activity) {
                     val intent = Intent(itemView.context, DiaryDetail::class.java)
-                    intent.putExtra("diaryData", item)
+                    intent.putExtra("diaryData", item.date)
                     var activity = (itemView.context) as Activity
                     activity.startActivityForResult(intent, 100)
                 }

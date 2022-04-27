@@ -21,7 +21,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/gowun_batang_regular"
-            android:text="Date"
+            android:text="@string/date"
             android:textSize="25sp" />
 
     </androidx.appcompat.widget.Toolbar>
@@ -41,7 +41,7 @@
             android:layout_margin="10dp"
             android:background="@null"
             android:fontFamily="@font/gowun_batang_regular"
-            android:hint="오늘의 하루를 기억해주세요" />
+            android:hint="@string/put_content" />
 
     </androidx.core.widget.NestedScrollView>
 
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:fontFamily="@font/gowun_batang_regular"
-            android:text="등록"
+            android:text="@string/btn_text_register"
             android:textColor="@color/black" />
 
     </LinearLayout>

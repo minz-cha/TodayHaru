@@ -24,7 +24,7 @@
             android:id="@+id/dailyNone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="오늘의 하루를 채워주세요" />
+            android:text="@string/empty_list" />
 
     </LinearLayout>
 
